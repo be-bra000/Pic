@@ -1,8 +1,17 @@
 .venv/
 venv/
 
-*.pyc
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
+
+*.py[cod]
+*$py.class
+*.so
+.Python
 .vscode/
 .idea/
 
@@ -10,6 +19,7 @@ venv/
 Thumbs.db
 
 *.log
+logs/
 
 temp/
 tmp/
