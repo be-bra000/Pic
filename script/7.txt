@@ -1,7 +1,0 @@
-Python is a popular programming language. Python is easy to learn and incredibly powerful.
-We often use Python for data science and web development. The best Python developers
-know that PYTHON'S versatility is its main strength. Learning Python is a great first step
-into the world of coding.
-
-Programming is fun! Python is fun. This text is about programming and Python.
-I have a new Python project.
