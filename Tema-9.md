@@ -39,7 +39,8 @@ person2.surname = 'Петров'
 ```
 
 ### Результат.
-<img width="863" height="874" alt="image" src="https://github.com/user-attachments/assets/90c606b0-a785-44fa-b330-d7eadb69fc36" />
+<img width="1017" height="980" alt="image" src="https://github.com/user-attachments/assets/b66074ad-a093-46c2-8772-c645acc8a4e1" />
+
 
 ### Вывод:
 Был создан класс Ivan, демонстрирующий базовые принципы ООП: инкапсуляцию данных через __slots__ и инициализацию объекта в методе __init__. Эксперимент показал, что попытка добавить атрибут surname, не указанный в __slots__, приводит к ошибке AttributeError, что подтверждает жесткое ограничение на набор атрибутов экземпляра и предотвращает случайное создание новых полей.
@@ -71,7 +72,8 @@ icecream.composition()
 ```
 
 ### Результат.
-<img width="657" height="845" alt="image" src="https://github.com/user-attachments/assets/b298264b-7d49-49ee-a01e-9f70c44fda10" />
+<img width="825" height="954" alt="image" src="https://github.com/user-attachments/assets/42087825-5cc7-4a25-bd9d-6d1fc9a027ba" />
+
 
 ### Вывод:
 Реализован класс Icecream, который на практике иллюстрирует использование условной логики в методах для управления состоянием объекта. Код проверяет тип переданного ингредиента, что является примером элементарной валидации данных на уровне объекта. Это основа для построения более надежных и предсказуемых классов.
@@ -107,7 +109,8 @@ print(obj.get_value())  # Ошибка: Попытка доступа к атр�
 ```
 
 ### Результат.
-<img width="816" height="1107" alt="image" src="https://github.com/user-attachments/assets/69a4c2ec-7d49-4be7-b6c8-aeae6d24d46c" />
+<img width="829" height="1043" alt="image" src="https://github.com/user-attachments/assets/19f10bab-ce98-4b3b-8c39-c82fc308ae69" />
+
 
 ### Вывод:
 Разработан класс MyClass с использованием свойства (property), которое объединяет геттер, сеттер и деструктор. Это наглядная демонстрация управления доступом к атрибуту _value. Ошибка AttributeError в конце выполнения программы была ожидаемой и подтвердила корректную работу деструктора del_value, который удалил атрибут, сделав последующий вызов геттера невозможным.
@@ -137,7 +140,8 @@ print(f"Cat is {cat.className}, but they say {cat.sounds}")
 ```
 
 ### Результат.
-<img width="991" height="697" alt="image" src="https://github.com/user-attachments/assets/1b3b2539-9614-45c6-b743-b9003374769d" />
+<img width="827" height="1045" alt="image" src="https://github.com/user-attachments/assets/1c311c7c-c4d4-4ba4-ad55-ea62da96ecf9" />
+
 
 ### Вывод:
 Создана иерархия классов Mammal -> Dog, Cat, являющаяся практическим примером наследования. Классы-потомки унаследовали атрибут className от родительского класса и получили собственные уникальные атрибуты (species, sounds). Это подтверждает, что наследование позволяет эффективно повторно использовать код и создавать специализированные сущности на основе общей.
@@ -169,7 +173,8 @@ greet(john)
 ```
 
 ### Результат.
-<img width="995" height="737" alt="image" src="https://github.com/user-attachments/assets/937207c3-1241-4212-b43e-c2bdcc1ea102" />
+<img width="822" height="1039" alt="image" src="https://github.com/user-attachments/assets/81cf8363-37df-4358-b820-2f9bd42ef458" />
+
 
 ### Вывод:
 Продемонстрирован принцип полиморфизма с помощью классов Russian и English, имеющих одноименный метод greeting(). Универсальная функция greet(language) может работать с любым объектом, имеющим метод greeting, не зная его конкретного типа. Использование декоратора @staticmethod подчеркивает, что поведение метода не зависит от состояния конкретного экземпляра.
@@ -225,102 +230,87 @@ greet(john)
 
 ```python
 class Tomato:
-    states = ('отсутствует', 'цветение', 'зеленый', 'красный')
+    stages = ('росток', 'цветение', 'зеленый', 'красный')
 
-    def __init__(self, index):
-        self._index = index  # Защищенный атрибут.
-        self._state = self.states[0]  # Защищенный атрибут.
+    def __init__(self, number):
+        self.number = number
+        self.stage = self.stages[0]
 
-    # Метод созревания помидора.
     def grow(self):
-        # Если состояние не "красное", то повышает текущее состояние на 1.
-        if self.states.index(self._state) + 1 <= 3:
-            self._state = self.states[self.states.index(self._state) + 1]
-        # Иначе оставляет красным.
-        else:
-            self._state = self.states[3]
+        current_stage_index = self.stages.index(self.stage)
+        if current_stage_index < len(self.stages) - 1:
+            self.stage = self.stages[current_stage_index + 1]
 
-    # Метод проверки спелости помидора.
-    def is_ripe(self):
-        if self._state == 'красный':
-            return True
-        else:
-            return False
-
+    def is_ready(self):
+        return self.stage == 'красный'
 
 class TomatoBush:
-    def __init__(self, number_tomatoes):
-        self.tomatoes = []  # Создаем пустой список помидоров.
-        for i in range(number_tomatoes - 1):  # Проходимся от 0 до числа помидоров минус 1
-            tomato = Tomato(i)  # Создаем экземпляр помидора с индексом i
-            self.tomatoes.append(tomato)  # Добавляем помидор в список.
+    def __init__(self, count):
+        self.tomatoes = []
+        for i in range(count):
+            self.tomatoes.append(Tomato(i))
 
-    # Метод созревания всех помидоров.
     def grow_all(self):
-        # Проход по помидорам в списке.
         for tomato in self.tomatoes:
-            tomato.grow()  # Вызов метода созревания.
+            tomato.grow()
 
-    # Метод проверки спелости всех помидоров.
-    def all_are_ripe(self):
-        # Возвращает True, если все помидоры созрели, и False, если не все.
-        return all(tomato.is_ripe() is True for tomato in self.tomatoes)
+    def check_all_ready(self):
+        for tomato in self.tomatoes:
+            if not tomato.is_ready():
+                return False
+        return True
 
-    # Метод чистки списка помидоров.
-    def give_away_all(self):
-        self.tomatoes = []  # Очищает список
-
+    def collect_all(self):
+        self.tomatoes = []
 
 class Gardener:
     def __init__(self, name, tomato_bush):
-        self.name = name  # Публичный атрибут.
-        self._plant = tomato_bush  # Защищенный атрибут.
+        self.name = name
+        self.tomato_bush = tomato_bush
 
-    # Метод работы.
-    def work(self):
-        if not self._plant.tomatoes:  # Проверка на пустой куст.
-            print("Куст пуст - нечего поливать!")
+    def care(self):
+        if len(self.tomato_bush.tomatoes) == 0:
+            print("На кусте нет помидоров для ухода!")
         else:
-            self._plant.grow_all()  # Вызов метода созревания всех помидоров.
-            print(f"{self.name} полил помидоры и они выросли.")
+            self.tomato_bush.grow_all()
+            print(f"{self.name} позаботился о растениях")
 
-    # Метод сбора урожая.
-    def harvest(self):
-        if not self._plant.tomatoes:  # Проверка на пустой куст.
-            print("Куст пуст - нечего собирать!")
+    def collect(self):
+        if len(self.tomato_bush.tomatoes) == 0:
+            print("Собирать нечего - куст пуст!")
         else:
-            if self._plant.all_are_ripe():  # Вызов метода проверки на спелость всех помидоров.
-                self._plant.give_away_all()  # Вызов метода чистки помидоров.
-                print("Урожай собран.")
+            if self.tomato_bush.check_all_ready():
+                self.tomato_bush.collect_all()
+                print(f"{self.name} собрал прекрасный урожай!")
             else:
-                print("Еще не все помидоры созрели.")
+                print("Нужно подождать - еще не все помидоры созрели")
 
-    @staticmethod  # Декоратор статического метода.
-    def knowledge_base():  # Метод для вывода справки по садоводству.
-        print("Уход за томатами заключается в окучивании, рыхлении почвы, подкормках и поливах, \nформировании куста и "
-              "своевременной борьбе с болезнями и вредителями.Томаты следует \nполивать исключительно под корень, "
-              "особенно во время цветения.\n")
+    @staticmethod
+    def garden_guide():
+        print("Советы по выращиванию томатов:")
+        print("• Регулярно поливайте растения утром или вечером")
+        print("• Удаляйте боковые побеги для лучшего роста")
+        print("• Подкармливайте растения каждые 2 недели")
+        print("• Собирайте урожай когда плоды полностью покраснеют\n")
 
-
-# Тесты.
-Gardener.knowledge_base()
-t_bush = TomatoBush(12)
-gardener = Gardener("Ваня", t_bush)
-gardener.work()
-gardener.harvest()
-gardener.work()
-gardener.harvest()
-gardener.work()
-gardener.harvest()
-gardener.work()
-gardener.harvest()
+Gardener.garden_guide()
+bush = TomatoBush(8)
+gardener = Gardener("Алексей", bush)
+gardener.care()
+gardener.collect()
+gardener.care()
+gardener.collect()
+gardener.care()
+gardener.collect()
+gardener.care()
+gardener.collect()
 ```
 
 ### Результат.
 <img width="1050" height="1390" alt="image" src="https://github.com/user-attachments/assets/19d26756-fcfd-4943-97d7-cb1988a2df46" />
 
 ## Выводы
-Была успешно смоделирована предметная область "Садовник и помидоры" с помощью трех классов (Tomato, TomatoBush, Gardener), взаимодействующих друг с другом. Работа показала эффективное комбинирование нескольких принципов ООП: инкапсуляции (защищенные атрибуты _index, _state, _plant), наследования (хотя и неявно, через общую логику) и полиморфизма (единый интерфейс методов grow(), is_ripe() для всех томатов). Статический метод knowledge_base() предоставил функциональность, связанную с классом, но не с его экземплярами.
+Разработана объектно-ориентированная модель системы "Садовник и томаты" с тремя взаимосвязанными классами. Реализованы принципы ООП: инкапсуляция через защищенные атрибуты, полиморфизм в единых методах grow() и is_ready(). Статический метод предоставляет общую справочную информацию. Модель корректно имитирует жизненный цикл томатов от роста до сбора урожая, демонстрируя эффективное взаимодействие объектов.
 ## Общие выводы по теме
 
 В результате выполнения данной работы, я изучил концепции и принципы объектно-ориентированного программирования на Python.
